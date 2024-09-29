@@ -37,7 +37,10 @@ class ShopPolicy
      */
     public function update(User $user, Shop $shop): bool
     {
-        //
+        // return $user->id === $shop->user_id
+        //     ? Response::allow()
+        //     : Response::deny('You do not own this shop.');
+        return true;
     }
 
     /**

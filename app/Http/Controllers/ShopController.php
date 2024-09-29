@@ -55,7 +55,7 @@ class ShopController extends Controller
      */
     public function show(Shop $shop)
     {
-        //
+        return response()->json($shop);
     }
 
     /**
@@ -71,7 +71,19 @@ class ShopController extends Controller
      */
     public function update(UpdateShopRequest $request, Shop $shop)
     {
-        //
+        // Log the request user
+        Log::info('User:', ['user' => $request->user()]);
+
+        // Check if the request is authorized
+        if ($request->user()->cannot('update', $shop)) {
+            abort(403, 'Unauthorized action.');
+        }
+        
+        $request->validated();
+
+        $shop->update($request->all());
+
+        return response()->json($shop, 200);
     }
 
     /**
