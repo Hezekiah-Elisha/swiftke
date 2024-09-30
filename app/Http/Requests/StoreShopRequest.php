@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreShopRequest extends FormRequest
 {
@@ -14,6 +16,15 @@ class StoreShopRequest extends FormRequest
         return true;
     }
 
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Validation error',
+            'data'      => $validator->errors()
+        ]));
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +33,8 @@ class StoreShopRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|unique:shops,name',
+            'description' => 'required|string',
         ];
     }
 }

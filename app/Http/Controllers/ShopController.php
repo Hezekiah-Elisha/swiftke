@@ -91,6 +91,21 @@ class ShopController extends Controller
      */
     public function destroy(Shop $shop)
     {
-        //
+        // check if shop exists
+        if (!$shop) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Shop not found',
+                ], 404);
+        }
+
+        $shop->delete();
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Shop deleted successfully',
+            ], 200);
     }
 }

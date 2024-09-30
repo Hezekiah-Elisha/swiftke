@@ -26,5 +26,5 @@ Route::group(['prefix' => 'shops'], function () {
     Route::post('/', [ShopController::class, 'store'])->middleware('auth:sanctum');
     Route::get('/{shop}', [ShopController::class, 'show']);
     Route::put('/{shop}', [ShopController::class, 'update'])->middleware('auth:sanctum');
-    Route::delete('/{shop}', [ShopController::class, 'destroy']);
+    Route::delete('/{shop}', [ShopController::class, 'destroy'])->middleware('auth:sanctum');
 });

@@ -48,7 +48,10 @@ class ShopPolicy
      */
     public function delete(User $user, Shop $shop): bool
     {
-        //
+        // return $user->id === $shop->user_id
+        //     ? Response::allow()
+        //     : Response::deny('You do not own this shop.');
+        return true;
     }
 
     /**
@@ -56,7 +59,7 @@ class ShopPolicy
      */
     public function restore(User $user, Shop $shop): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -64,6 +67,6 @@ class ShopPolicy
      */
     public function forceDelete(User $user, Shop $shop): bool
     {
-        //
+        return true;
     }
 }
